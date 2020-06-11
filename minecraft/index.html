@@ -42,7 +42,7 @@
 			var rollOverMesh, rollOverMaterial;
 			var cubeGeo, cubeMaterial;
 
-			var merged_objects = [];
+			var merged_object;
             var objects = [];
 			var j = 0; //counter for merged objects
 			var m;
@@ -171,6 +171,8 @@
 					var intersect = intersects[ 0 ];
 
 					rollOverMesh.position.copy( intersect.point ).add( intersect.face.normal );
+					//console.log(intersect.point);
+					//console.log(intersect.face.normal);
 					rollOverMesh.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
 
 				}
@@ -206,7 +208,7 @@
 
 						}
 
-						// create cube
+					// create cube
 
 					} else {
 
@@ -298,18 +300,19 @@
 					merged_geom.merge(objects[i].geometry, objects[i].matrix);
 				}
 				
-				m = objects.length;
-				merged_objects[j]= new THREE.Mesh(merged_geom, cubeMaterial);
-				j++;
+				//m = objects.length;
+				merged_object= new THREE.Mesh(merged_geom, cubeMaterial);
+				//j++;
 
 	        }
 
 			//clear all cubes
 			function clear_all()
 			{
-				for (var i = 1; i<objects.length; i++)
+				for (var i = objects.length-1; i>0 ; i--)
 				{
 					scene.remove(objects[i]);
+					objects.pop();
 				}
 			}
 
